@@ -5,7 +5,7 @@ RUN apt-get update && apt-get install --no-install-recommends -y git zsh ssh vim
 RUN mkdir -p /work /local /opt/bin /etc/zsh && chmod 777 /work /local
 WORKDIR /work
 
-RUN git clone git://github.com/robbyrussell/oh-my-zsh.git /usr/local/share/oh-my-zsh
+RUN git clone https://github.com/robbyrussell/oh-my-zsh.git /usr/local/share/oh-my-zsh
 
 COPY cli-tools /usr/local/bin
 COPY update-cli-tools.sh /usr/local/bin
