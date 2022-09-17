@@ -1,9 +1,0 @@
-(\
-	pecl install xhprof \
-	&& docker-php-ext-enable xhprof \
-	&& mkdir -p /opt/xhprof \
-	&& cd /opt/xhprof/ \
-	&& pecl download xhprof \
-	&& tar --strip 1 -xzvf xhprof-*.tgz \
-	&& rm -fr xhprof-*.tgz \
-)

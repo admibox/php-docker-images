@@ -1,3 +1,4 @@
-apt-get install --no-install-recommends -y librdkafka1 librdkafka-dev \
-	&& pecl install rdkafka \
-	&& apt-get --purge remove -y librdkafka-dev
+echo '### RDKafka for last PHP version' \
+&& apt-get install --no-install-recommends -y librdkafka1 librdkafka-dev \
+&& printf "\n" | pecl install rdkafka \
+&& apt-get --purge remove -y librdkafka-dev

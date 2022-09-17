@@ -15,12 +15,16 @@ return [
     'memcached',
     'zip',
     'pcntl',
-    'geoip',
+
+    //'geoip', // deprecated
 
     'pdo_mysql',
     'mysqli',
+    'mongodb',
 
+    'amqp',
     'rdkafka',
+
     'swoole',
 
     // Debug and profiling

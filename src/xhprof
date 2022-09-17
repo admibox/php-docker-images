@@ -1,9 +1,10 @@
 (\
-	pecl install channel://pecl.php.net/xhprof-0.9.4 \
-	&& mkdir -p /opt/xhprof \
-	&& cd /opt/xhprof/ \	
-	&& pecl download channel://pecl.php.net/xhprof-0.9.4 \
-	&& tar --strip 1 -xzvf xhprof-0.9.4.tgz \
-	&& rm -fr xhprof-0.9.4.tgz \
+	mkdir -p /var/xhprof /opt/xhprof/xhprof_html /usr/local/share/php && chmod 777 /var/xhprof \
+	&& pecl install xhprof \
 	&& docker-php-ext-enable xhprof \
+	&& mkdir -p /opt/xhprof \
+	&& cd /opt/xhprof/ \
+	&& pecl download xhprof \
+	&& tar --strip 1 -xzvf xhprof-*.tgz \
+	&& rm -fr xhprof-*.tgz \
 )

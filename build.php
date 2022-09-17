@@ -11,20 +11,34 @@ $tools = array_map(function($file) {
 
 $allExtensions = include($srcDir . '/extensions.php');
 
-foreach($versions as $version) {
+foreach($versions as $versionArr) {
     $extensions = [];
-    foreach($allExtensions as $file) {
-        $candidates = array_map(function($file) {
-            return pathinfo($file, PATHINFO_BASENAME);
-        }, array_merge(glob($srcDir . '/' . $file), glob($srcDir . '/' . "$file:*")));
 
-        usort($candidates, 'version_compare');
-        $max = $file . ':' . $version['version'];
-        $max = preg_replace('#(-cli|-fpm)$#', '', $max);
+    $version = $versionArr['version'];
+
+    foreach($allExtensions as $file) {
+        $max = substr(preg_replace('#(-cli|-fpm)$#', '', $version), 0);
+
+        $candidates = array_reduce(
+            array_merge(glob($srcDir . '/' . $file), glob($srcDir . '/' . "$file:*")),
+            function($result, $file) {
+                $basename = pathinfo($file, PATHINFO_BASENAME);
+                $v = explode(':', $basename);
+                $result[$v[1] ?? '100'] = $basename;
+                return $result;
+            },
+            []
+        );
+
+        uksort($candidates, 'version_compare');
+
+        $keys = array_reverse(array_keys($candidates));
 
         do {
-            $candidate = array_pop($candidates);
-        } while($candidate && version_compare($candidate, $max, 'gt'));
+            $key = array_pop($keys);
+        } while($key && version_compare($key, $max, 'lt'));
+
+        $candidate = $candidates[$key];
 
         $content = trim(file_get_contents($srcDir . '/' . $candidate), " \t\n\r\0\x0B\\");
 
@@ -34,7 +48,7 @@ foreach($versions as $version) {
     }
 
     ob_start();
-    if (preg_match('/-cli$/', $version['version'])) {
+    if (preg_match('/-cli$/', $version)) {
         include($srcDir . '/' . 'block.cli');
     }
     $cli = ob_get_clean();
@@ -43,7 +57,7 @@ foreach($versions as $version) {
     include $srcDir . '/' . 'layout.base';
     $contents = ob_get_clean();
 
-    $toDir = $buildDir . '/' . $version['version'];
+    $toDir = $buildDir . '/' . $version;
     if (!file_exists($toDir)) {
         mkdir($toDir, 0755, true);
     }

@@ -1,0 +1,4 @@
+echo '### Mcrypt for last PHP version' \
+&& apt-get install --no-install-recommends -y libmcrypt4 libmcrypt-dev \
+	&& printf "\n" | pecl install mcrypt-1.0.4 \
+	&& echo 'DISABLED: docker-php-ext-install mcrypt'
