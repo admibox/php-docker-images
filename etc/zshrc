@@ -1,16 +1,16 @@
 function join_by { local IFS="$1"; shift; echo "$*"; }
 
 function curenv {
-    case "$PRO_ENV" in
-    "production") PRO_COLOR="%{$bg[red]%}%{$fg_bold[white]%}" ;;
-    "staging") PRO_COLOR="%{$fg[yellow]%}" ;;
-    "testing") PRO_COLOR="%{$fg[yellow]%}" ;;
-    "pre") PRO_COLOR="%{$fg[yellow]%}" ;;
-    "preproduction") PRO_COLOR="%{$fg[yellow]%}" ;;
-    *) PRO_COLOR="%{$fg[green]%}" ;;
+    case "$APP_ENV" in
+    "production") APP_COLOR="%{$bg[red]%}%{$fg_bold[white]%}" ;;
+    "staging") APP_COLOR="%{$fg[yellow]%}" ;;
+    "testing") APP_COLOR="%{$fg[yellow]%}" ;;
+    "pre") APP_COLOR="%{$fg[yellow]%}" ;;
+    "preproduction") APP_COLOR="%{$fg[yellow]%}" ;;
+    *) APP_COLOR="%{$fg[green]%}" ;;
     esac
-    
-    CURENV=$(join_by \| ${PRO_ENV:+"${PRO_COLOR}$PRO_ENV%{$reset_color%}"} ${PRO_PRJ:+"$PRO_PRJ"})
+
+    CURENV=$(join_by \| ${APP_ENV:+"${APP_COLOR}$APP_ENV%{$reset_color%}"} ${APP_NAME:+"$APP_NAME"})
     echo ${CURENV%%*( )}
 }
 
