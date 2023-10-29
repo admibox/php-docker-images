@@ -1,4 +1,6 @@
 FROM php:7.3-fpm
+ARG DEBIAN_FRONTEND=noninteractive
+
 RUN set -ex \
 && apt-get update \
 && apt-get install --no-install-recommends -y git msmtp \

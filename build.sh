@@ -1,6 +1,6 @@
 #!/bin/sh
 
-TO=$(pwd)/cli-tools ./update-cli-tools.sh
+#TO=$(pwd)/cli-tools ./update-cli-tools.sh
 docker run -u$(id -u):$(id -g) -ti --rm -v $(pwd):/work -eMODE=production php:7.3-cli-alpine -f /work/build.php
 
 # Loop through each folder in the 'build' directory

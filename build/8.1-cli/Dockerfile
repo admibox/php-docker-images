@@ -1,4 +1,6 @@
-FROM admibox/php:8.1-fpm
+FROM php:8.1-fpm
+ARG DEBIAN_FRONTEND=noninteractive
+
 RUN set -ex \
 && apt-get update \
 && apt-get install --no-install-recommends -y git msmtp \
