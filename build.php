@@ -1,7 +1,7 @@
 <?php
 $buildDir = __DIR__ . '/build';
-$srcDir = __DIR__ . '/src';
-$versions = include($srcDir . '/versions.php');
+$extensionsDir = __DIR__ . '/extensions';
+$versions = include(__DIR__ . '/versions.php');
 
 $tools = array_map(function($file) {
     return pathinfo($file, PATHINFO_BASENAME);
@@ -9,18 +9,19 @@ $tools = array_map(function($file) {
     return ! is_link($file) && strpos($file, 'update-cli-tools') === false;
 }));
 
-$allExtensions = include($srcDir . '/extensions.php');
+$allExtensions = include(__DIR__ . '/extensions.php');
 
 foreach($versions as $versionArr) {
     $extensions = [];
 
     $version = $versionArr['version'];
+    $base = $versionArr['base'] ?? $version;
 
     foreach($allExtensions as $file) {
         $max = substr(preg_replace('#(-cli|-fpm)$#', '', $version), 0);
 
         $candidates = array_reduce(
-            array_merge(glob($srcDir . '/' . $file), glob($srcDir . '/' . "$file:*")),
+            array_merge(glob($extensionsDir . '/' . $file), glob($extensionsDir . '/' . "$file:*")),
             function($result, $file) {
                 $basename = pathinfo($file, PATHINFO_BASENAME);
                 $v = explode(':', $basename);
@@ -40,7 +41,7 @@ foreach($versions as $versionArr) {
 
         $candidate = $candidates[$key];
 
-        $content = trim(file_get_contents($srcDir . '/' . $candidate), " \t\n\r\0\x0B\\");
+        $content = trim(file_get_contents($extensionsDir . '/' . $candidate), " \t\n\r\0\x0B\\");
 
         if ($content) {
             $extensions[$file] = $content;
@@ -49,12 +50,12 @@ foreach($versions as $versionArr) {
 
     ob_start();
     if (preg_match('/-cli$/', $version)) {
-        include($srcDir . '/' . 'block.cli');
+        include(__DIR__ . '/' . 'block.cli');
     }
     $cli = ob_get_clean();
 
     ob_start();
-    include $srcDir . '/' . 'layout.base';
+    include __DIR__ . '/' . 'layout.base';
     $contents = ob_get_clean();
 
     $toDir = $buildDir . '/' . $version;

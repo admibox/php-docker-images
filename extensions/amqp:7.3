@@ -1,0 +1,4 @@
+echo '### AMQP for last PHP version' \
+&& apt-get install --no-install-recommends -y librabbitmq4 librabbitmq-dev \
+&& printf "\n" | pecl install amqp-1.11.0 \
+&& apt-get --purge remove -y librabbitmq-dev

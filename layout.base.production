@@ -1,4 +1,4 @@
-FROM php:<?= $version ?>
+FROM php:<?= $base ?>
 
 RUN set -ex \
 && apt-get update \

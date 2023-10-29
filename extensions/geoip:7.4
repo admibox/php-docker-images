@@ -1,0 +1,4 @@
+echo '### GeoIP for PHP <= 7.4' \
+&& apt-get install --no-install-recommends -y libgeoip1 libgeoip-dev \
+&& pecl install geoip-beta \
+&& apt-get --purge remove -y libgeoip-dev

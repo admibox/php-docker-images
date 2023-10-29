@@ -16,7 +16,7 @@ return [
     'zip',
     'pcntl',
 
-    //'geoip', // deprecated
+    'geoip', // deprecated
 
     'pdo_mysql',
     'mysqli',
@@ -26,9 +26,11 @@ return [
     'rdkafka',
 
     'swoole',
+    'openswoole',
 
     // Debug and profiling
     'xhprof',
     'xdebug',
     'uopz',
+    'trapbox',
 ];
