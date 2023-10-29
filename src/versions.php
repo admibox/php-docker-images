@@ -1,5 +1,8 @@
 <?php
 return [
+    [ 'version' => '8.2-cli', ],
+    [ 'version' => '8.2-fpm', ],
+
     [ 'version' => '8.1-cli', ],
     [ 'version' => '8.1-fpm', ],
 
@@ -10,3 +13,4 @@ return [
     [ 'version' => '7.3-cli', ],
     [ 'version' => '7.3-fpm', ],
 ];
+
