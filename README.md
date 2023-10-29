@@ -77,7 +77,7 @@ Useful system packages included:
     mariadb-client
     msmtp
     vim
-    zsh with ohmyzsh
+    zsh with Oh My ZSH!
 
 ```
 docker run -u $(id -u):$(id -g) -ti --rm -v $(pwd):/work -w /work admibox/php:8.2-cli zsh

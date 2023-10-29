@@ -14,7 +14,7 @@ RUN echo \
 '\n'\
 '# \n'\
 '# PHP-CLI docker image by [Admibox](https://admibox.com/) | @getadmibox | <dev@admibox.com>.\n'\
-'# Based on the official php:<?= $base ?> docker image.\n'\
+'# Based on the official php:<?= $version ?> docker image.\n'\
 '# \n'\
 '# Pre-built PHP extensions included: <?= implode(', ', array_keys($extensions)) ?>.\n'\
 '# \n'\
