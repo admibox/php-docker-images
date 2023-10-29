@@ -55,7 +55,7 @@ foreach($versions as $versionArr) {
     $cli = ob_get_clean();
 
     ob_start();
-    include __DIR__ . '/' . 'layout.base';
+    include __DIR__ . '/' . getenv('MODE') === 'production' ? 'layout.base.production' : 'layout.base';
     $contents = ob_get_clean();
 
     $toDir = $buildDir . '/' . $version;
