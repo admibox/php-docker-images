@@ -101,13 +101,15 @@ RUN set -ex \
 \
 && pecl install uopz \
 \
-&& mkdir -p /tmp/trapbox \
-&& git clone https://github.com/admibox/php-trapbox.git /tmp/trapbox \
-&& cd /tmp/trapbox \
-&& phpize \
-&& ./configure \
-&& make \
-&& make install \
+&& (\
+  mkdir -p /tmp/trapbox \
+  && git clone https://github.com/admibox/php-trapbox.git /tmp/trapbox \
+  && cd /tmp/trapbox \
+  && phpize \
+  && ./configure \
+  && make \
+  && make install \
+) \
 && apt-get --purge remove -y git \
 && apt-get --purge autoremove -y \
 && apt-get clean \
