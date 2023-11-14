@@ -41,7 +41,7 @@ curl -o wp-cli.phar https://raw.githubusercontent.com/wp-cli/builds/gh-pages/pha
 
 # jq
 
-curl -o jq -L https://github.com/stedolan/jq/releases/download/jq-1.6/jq-linux64 \
+curl -o jq -L https://github.com/stedolan/jq/releases/latest/download/jq-linux64 \
     && chmod +x jq
 
 

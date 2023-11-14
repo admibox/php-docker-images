@@ -2,12 +2,13 @@ FROM <?= $base ?>
 
 ARG DEBIAN_FRONTEND=noninteractive
 
-<?php if (strpos($base, 'admibox') !== 0) : ?>
 RUN set -ex \
 && apt-get update \
-&& apt-get install --no-install-recommends -y git msmtp \
-&& <?= implode(" \\\n\\\n&& ", $extensions) ?> \
-&& apt-get --purge remove -y git \
+&& apt-get install --no-install-recommends -y git msmtp
+
+<?= implode("\n\n", array_map(function($code) {return "RUN $code"; }, $extensions)) ?>
+
+RUN apt-get --purge remove -y git \
 && apt-get --purge autoremove -y \
 && apt-get clean \
 && rm -fr /usr/src
@@ -20,6 +21,5 @@ COPY files/prepend.ini /usr/local/etc/php/conf.d/prepend.ini
 COPY files/xhprof.ini /usr/local/etc/php/conf.d/xhprof.ini
 COPY files/xhproxy.php /opt/xhprof/xhprof_html/xhproxy.php
 COPY files/prepend.php.inc /usr/local/share/php/prepend.php.inc
-<?php endif ?>
 
 <?= $cli ?>
