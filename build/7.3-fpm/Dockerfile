@@ -86,7 +86,7 @@ RUN set -ex \
 && printf "yes\nyes\nyes\nyes\nyes\nyes\nyes\n" | pecl install swoole-4.8.13 \
 && apt-get --purge remove -y libpq-dev libssl-dev libc-ares-dev \
 \
-&& echo '### Swoole for PHP >= 8' \
+&& echo '### Swoole for PHP >= 7.3' \
 && apt-get install --no-install-recommends -y libpq5 libpq-dev openssl libssl-dev libc-ares2 libc-ares-dev libcurl4-openssl-dev libcurl4 \
 && printf "yes\nyes\nyes\nyes\nyes\nyes\nyes\n" | pecl install openswoole-4.10.0 \
 && apt-get --purge remove -y libpq-dev libssl-dev libc-ares-dev \
