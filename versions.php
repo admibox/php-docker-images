@@ -1,5 +1,8 @@
 <?php
 return [
+    [ 'version' => '8.3-fpm', 'base' => 'php:8.3-fpm' ],
+    [ 'version' => '8.3-cli', 'base' => 'admibox/php:8.3-fpm' ],
+
     [ 'version' => '8.2-fpm', 'base' => 'php:8.2-fpm' ],
     [ 'version' => '8.2-cli', 'base' => 'admibox/php:8.2-fpm' ],
 
