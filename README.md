@@ -1,22 +1,11 @@
 # Admibox PHP Docker Images
 
-**NOTICE: 2023-10-29: Added support for PHP 8.2 and update extensions to latest versions**
+PHP Docker images from [Admibox SL](https://admibox.com/) | @getadmibox | <dev@admibox.com>.
+**Based on official PHP Debian Docker images.**
 
-**NOTICE: 2022-03-03: Added support for PHP 8.1 and rebrand from EcommPro to Admibox**
+These images are ready for use with Laravel, Magento 1/2, and WordPress.
 
-**NOTICE: 2021-06-19: Set `main` as default branch**
-
-**NOTICE: 2021-06-19: Dropped support for unmaintained PHP versions: 5.6, 7.0, 7.1 and 7.2**
-
-**NOTICE: Tags ending with `-debian` will be deprecated. Please use the `-fpm` and `-cli` ones (based on debian).**
-
-**NOTICE: Dropped support for Alpine-based containers.**
-
-PHP docker images by [Admibox SL](https://admibox.com/) | @getadmibox | <dev@admibox.com>. **Based on the official PHP Debian docker images.**
-
-Ready to use with Laravel, Magento 1/2 and WordPress.
-
-Pre-built PHP extensions:
+Pre-built PHP extensions include:
 
     bcmath
     gd
@@ -35,18 +24,22 @@ Pre-built PHP extensions:
     xsl
     zip
 
-    openswoole (disabled by default)
-    rdkafka (disabled by default)
-    swoole (disabled by default)
-    trapbox (by Admibox, disabled by default)
-    uopz (disabled by default)
-    xdebug (disabled by default)
-    xhprof (disabled by default)
+Extensions disabled by default:
 
-Two versions: FPM and CLI.
+    openswoole
+    rdkafka
+    swoole
+    trapbox (by Admibox)
+    uopz
+    xdebug
+    xhprof
 
-Images (available from <https://hub.docker.com/u/admibox>):
+Available in two versions: FPM and CLI.
 
+Images can be found at <https://hub.docker.com/u/admibox>:
+
+    admibox/php:8.3-fpm
+    admibox/php:8.3-cli
     admibox/php:8.2-fpm
     admibox/php:8.2-cli
     admibox/php:8.1-fpm
@@ -60,7 +53,7 @@ Images (available from <https://hub.docker.com/u/admibox>):
 
 ## CLI
 
-CLI Tools included:
+CLI tools included:
 
     composer1
     composer2
@@ -79,7 +72,7 @@ Useful system packages included:
     vim
     zsh with Oh My ZSH!
 
-```
+```bash
 docker run -u $(id -u):$(id -g) -ti --rm -v $(pwd):/work -w /work admibox/php:8.2-cli zsh
 ```
 
