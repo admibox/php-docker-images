@@ -1,4 +1,4 @@
-FROM admibox/php:8.1-fpm
+FROM admibox/php:8.3-fpm
 ARG DEBIAN_FRONTEND=noninteractive
 
 
@@ -18,7 +18,7 @@ RUN echo \
 '\n'\
 '# \n'\
 '# PHP-CLI docker image by [Admibox](https://admibox.com/) | @getadmibox | <dev@admibox.com>.\n'\
-'# Based on the official php:8.1-cli docker image.\n'\
+'# Based on the official php:8.3-cli docker image.\n'\
 '# \n'\
 '# Pre-built PHP extensions included: bcmath, sockets, opcache, gd, imagick, intl, xmlrw, xsl, igbinary, redis, memcached, zip, pcntl, pdo_mysql, mysqli, mongodb, amqp, rdkafka, swoole, openswoole, xhprof, xdebug, uopz, trapbox.\n'\
 '# \n'\

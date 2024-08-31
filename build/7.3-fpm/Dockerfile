@@ -69,7 +69,7 @@ RUN set -ex \
 && docker-php-ext-install mysqli \
 \
 && echo '### MongoDB for last PHP version' \
-&& pecl install mongodb \
+&& pecl install mongodb-1.16.2 \
 \
 && echo '### AMQP for last PHP version' \
 && apt-get install --no-install-recommends -y librabbitmq4 librabbitmq-dev \

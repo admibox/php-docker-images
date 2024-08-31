@@ -20,7 +20,7 @@ RUN echo \
 '# PHP-CLI docker image by [Admibox](https://admibox.com/) | @getadmibox | <dev@admibox.com>.\n'\
 '# Based on the official php:8.2-cli docker image.\n'\
 '# \n'\
-'# Pre-built PHP extensions included: bcmath, sockets, opcache, gd, imagick, libsodium, intl, xmlrw, xsl, igbinary, redis, memcached, zip, pcntl, pdo_mysql, mysqli, mongodb, amqp, rdkafka, swoole, openswoole, xhprof, xdebug, uopz, trapbox.\n'\
+'# Pre-built PHP extensions included: bcmath, sockets, opcache, gd, imagick, intl, xmlrw, xsl, igbinary, redis, memcached, zip, pcntl, pdo_mysql, mysqli, mongodb, amqp, rdkafka, swoole, openswoole, xhprof, xdebug, uopz, trapbox.\n'\
 '# \n'\
 '# Tools included: composer1.phar, composer2.phar, jq, modman, n98-magerun.phar, n98-magerun2.phar, wp-cli.phar.\n'\
 '# \n'\

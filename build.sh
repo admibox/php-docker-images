@@ -10,9 +10,9 @@ for dir in build/*-fpm; do
 done
 
 # Loop through each folder in the 'build' directory
-for dir in build/*-cli; do
-  tag=$(basename $dir)
-  docker build --no-cache -t admibox/php:$tag -f build/$tag/Dockerfile .
-done
+#for dir in build/*-cli; do
+#  tag=$(basename $dir)
+#  docker build --no-cache -t admibox/php:$tag -f build/$tag/Dockerfile .
+#done
 
 # docker push -a admibox/php

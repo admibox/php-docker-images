@@ -1,4 +1,7 @@
-echo '### Swoole for PHP >= 8' \
-&& apt-get install --no-install-recommends -y libpq5 libpq-dev openssl libssl-dev libc-ares2 libc-ares-dev libcurl4-openssl-dev libcurl4 \
-&& printf "yes\nyes\nyes\nyes\nyes\nyes\nyes\n" | pecl install openswoole \
-&& apt-get --purge remove -y libpq-dev libssl-dev libc-ares-dev
+echo '### Open Swoole for PHP >= 8.3' \
+&& apt-get install --no-install-recommends -y libpq5 libpq-dev openssl libssl-dev libc-ares2 libc-ares-dev libcurl4-openssl-dev libcurl4 libbrotli-dev \
+&& docker-php-source extract \
+&& cp -fr /usr/src/php/ext/sockets /usr/local/include/php/ext/ \
+&& printf "yes\nyes\nyes\nyes\nyes\nyes\n" | pecl install openswoole \
+&& docker-php-source delete \
+&& apt-get --purge remove -y libpq-dev libssl-dev libc-ares-dev libbrotli-dev

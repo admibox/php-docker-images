@@ -21,10 +21,6 @@ RUN set -ex \
 	&& printf "\n" | pecl install imagick \
 	&& apt-get --purge remove -y libmagickwand-dev \
 \
-&& apt-get install --no-install-recommends -y libsodium23 libsodium-dev \
-	&& pecl install -f libsodium \
-	&& apt-get --purge remove -y libsodium-dev \
-\
 && apt-get install --no-install-recommends -y libicu72 libicu-dev \
 	&& docker-php-ext-install intl \
 	&& apt-get --purge remove -y libicu-dev \
@@ -73,14 +69,14 @@ RUN set -ex \
 && apt-get --purge remove -y librdkafka-dev \
 \
 && echo '### Swoole for PHP >= 8' \
-&& apt-get install --no-install-recommends -y libpq5 libpq-dev openssl libssl-dev libc-ares2 libc-ares-dev libcurl4-openssl-dev libcurl4 \
+&& apt-get install --no-install-recommends -y libpq5 libpq-dev openssl libssl-dev libc-ares2 libc-ares-dev libcurl4-openssl-dev libcurl4 libbrotli-dev \
 && printf "yes\nyes\nyes\nyes\nyes\nyes\nyes\n" | pecl install swoole \
-&& apt-get --purge remove -y libpq-dev libssl-dev libc-ares-dev \
+&& apt-get --purge remove -y libpq-dev libssl-dev libc-ares-dev libbrotli-dev \
 \
-&& echo '### Swoole for PHP >= 8' \
-&& apt-get install --no-install-recommends -y libpq5 libpq-dev openssl libssl-dev libc-ares2 libc-ares-dev libcurl4-openssl-dev libcurl4 \
+&& echo '### Open Swoole for PHP >= 8' \
+&& apt-get install --no-install-recommends -y libpq5 libpq-dev openssl libssl-dev libc-ares2 libc-ares-dev libcurl4-openssl-dev libcurl4 libbrotli-dev \
 && printf "yes\nyes\nyes\nyes\nyes\nyes\nyes\n" | pecl install openswoole \
-&& apt-get --purge remove -y libpq-dev libssl-dev libc-ares-dev \
+&& apt-get --purge remove -y libpq-dev libssl-dev libc-ares-dev libbrotli-dev \
 \
 && (\
 	mkdir -p /var/xhprof /opt/xhprof/xhprof_html /usr/local/share/php && chmod 777 /var/xhprof \

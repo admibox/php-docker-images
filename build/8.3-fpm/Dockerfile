@@ -1,4 +1,4 @@
-FROM php:8.0-fpm
+FROM php:8.3-fpm
 ARG DEBIAN_FRONTEND=noninteractive
 
 RUN set -ex \
@@ -11,25 +11,28 @@ RUN set -ex \
 && docker-php-ext-install opcache \
 \
 && echo '### GD for last PHP version' \
-&& apt-get install --no-install-recommends -y libfreetype6 libfreetype6-dev libpng16-16 libpng-dev libjpeg62-turbo libjpeg62-turbo-dev libjpeg-dev libwebp6 libwebp-dev \
+&& apt-get install --no-install-recommends -y libfreetype6 libfreetype6-dev libpng16-16 libpng-dev libjpeg62-turbo libjpeg62-turbo-dev libjpeg-dev libwebp7 libwebp-dev \
 	&& docker-php-ext-configure gd --enable-gd --with-freetype=/usr/include/ --with-jpeg=/usr/include/ --with-webp=/usr/include/ \
 	&& docker-php-ext-install gd \
 	&& apt-get --purge remove -y libfreetype6-dev libpng-dev libjpeg62-turbo-dev libjpeg-dev libjpeg-dev \
 \
 && echo '### Imagick for last PHP version' \
-&& apt-get install --no-install-recommends -y imagemagick libmagickwand-dev \
-	&& printf "\n" | pecl install imagick \
-	&& apt-get --purge remove -y libmagickwand-dev \
+&& (\
+apt-get install --no-install-recommends -y imagemagick libmagickwand-dev \
+&& git clone https://github.com/Imagick/imagick.git --depth 1 /tmp/imagick \
+&& cd /tmp/imagick \
+&& git fetch origin master \
+&& git switch master \
+&& phpize \
+&& ./configure \
+&& make \
+&& make install \
+&& rm -fr /tmp/imagick \
+&& docker-php-ext-enable imagick \
+&& apt-get --purge remove -y libmagickwand-dev \
+) \
 \
-&& echo '### Mcrypt for last PHP version' \
-&& apt-get install --no-install-recommends -y libmcrypt4 libmcrypt-dev \
-	&& printf "\n" | pecl install mcrypt \
-\
-&& apt-get install --no-install-recommends -y libsodium23 libsodium-dev \
-	&& pecl install -f libsodium \
-	&& apt-get --purge remove -y libsodium-dev \
-\
-&& apt-get install --no-install-recommends -y libicu67 libicu-dev \
+&& apt-get install --no-install-recommends -y libicu72 libicu-dev \
 	&& docker-php-ext-install intl \
 	&& apt-get --purge remove -y libicu-dev \
 \
@@ -76,15 +79,21 @@ RUN set -ex \
 && printf "\n" | pecl install rdkafka \
 && apt-get --purge remove -y librdkafka-dev \
 \
-&& echo '### Swoole for PHP >= 8' \
+&& echo '### Swoole for PHP >= 8.3' \
 && apt-get install --no-install-recommends -y libpq5 libpq-dev openssl libssl-dev libc-ares2 libc-ares-dev libcurl4-openssl-dev libcurl4 libbrotli-dev \
-&& printf "yes\nyes\nyes\nyes\nyes\nyes\nyes\n" | pecl install swoole \
+&& docker-php-source extract \
+&& cp -fr /usr/src/php/ext/sockets /usr/local/include/php/ext/ \
+&& printf "yes\nyes\nyes\nyes\nyes\nyes\nyes\nno\nno\nno\n" | pecl install swoole \
+&& docker-php-source delete \
 && apt-get --purge remove -y libpq-dev libssl-dev libc-ares-dev libbrotli-dev \
 \
-&& echo '### Swoole for PHP >= 7.4' \
-&& apt-get install --no-install-recommends -y libpq5 libpq-dev openssl libssl-dev libc-ares2 libc-ares-dev libcurl4-openssl-dev libcurl4 \
-&& printf "yes\nyes\nyes\nyes\nyes\nyes\nyes\n" | pecl install openswoole-22.0.0 \
-&& apt-get --purge remove -y libpq-dev libssl-dev libc-ares-dev \
+&& echo '### Open Swoole for PHP >= 8.3' \
+&& apt-get install --no-install-recommends -y libpq5 libpq-dev openssl libssl-dev libc-ares2 libc-ares-dev libcurl4-openssl-dev libcurl4 libbrotli-dev \
+&& docker-php-source extract \
+&& cp -fr /usr/src/php/ext/sockets /usr/local/include/php/ext/ \
+&& printf "yes\nyes\nyes\nyes\nyes\nyes\n" | pecl install openswoole \
+&& docker-php-source delete \
+&& apt-get --purge remove -y libpq-dev libssl-dev libc-ares-dev libbrotli-dev \
 \
 && (\
 	mkdir -p /var/xhprof /opt/xhprof/xhprof_html /usr/local/share/php && chmod 777 /var/xhprof \
@@ -97,7 +106,7 @@ RUN set -ex \
 	&& rm -fr xhprof-*.tgz \
 ) \
 \
-&& pecl install xdebug \
+&& pecl install xdebug-alpha \
 \
 && pecl install uopz \
 \

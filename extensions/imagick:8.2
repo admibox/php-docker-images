@@ -1,0 +1,4 @@
+echo '### Imagick for last PHP version' \
+&& apt-get install --no-install-recommends -y imagemagick libmagickwand-dev \
+	&& printf "\n" | pecl install imagick \
+	&& apt-get --purge remove -y libmagickwand-dev

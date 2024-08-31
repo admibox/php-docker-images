@@ -1,4 +1,15 @@
 echo '### Imagick for last PHP version' \
-&& apt-get install --no-install-recommends -y imagemagick libmagickwand-dev \
-	&& printf "\n" | pecl install imagick \
-	&& apt-get --purge remove -y libmagickwand-dev
+&& (\
+apt-get install --no-install-recommends -y imagemagick libmagickwand-dev \
+&& git clone https://github.com/Imagick/imagick.git --depth 1 /tmp/imagick \
+&& cd /tmp/imagick \
+&& git fetch origin master \
+&& git switch master \
+&& phpize \
+&& ./configure \
+&& make \
+&& make install \
+&& rm -fr /tmp/imagick \
+&& docker-php-ext-enable imagick \
+&& apt-get --purge remove -y libmagickwand-dev \
+)
