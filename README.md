@@ -1,6 +1,6 @@
-# Admibox PHP Docker Images
+# Konstack PHP Docker Images
 
-PHP Docker images from [Admibox SL](https://admibox.com/) | @getadmibox | <dev@admibox.com>.
+PHP Docker images from [Konstack SL](https://konstack.com/) | <dev@konstack.com>.
 **Based on official PHP Debian Docker images.**
 
 These images are ready for use with Laravel, Magento 1/2, and WordPress.
@@ -29,27 +29,27 @@ Extensions disabled by default:
     openswoole
     rdkafka
     swoole
-    trapbox (by Admibox)
+    trapbox (by Konstack)
     uopz
     xdebug
     xhprof
 
 Available in two versions: FPM and CLI.
 
-Images can be found at <https://hub.docker.com/u/admibox>:
+Images can be found at <https://hub.docker.com/u/konstack>:
 
-    admibox/php:8.3-fpm
-    admibox/php:8.3-cli
-    admibox/php:8.2-fpm
-    admibox/php:8.2-cli
-    admibox/php:8.1-fpm
-    admibox/php:8.1-cli
-    admibox/php:8.0-fpm
-    admibox/php:8.0-cli
-    admibox/php:7.4-fpm
-    admibox/php:7.4-cli
-    admibox/php:7.3-fpm
-    admibox/php:7.3-cli
+    konstack/php:8.3-fpm
+    konstack/php:8.3-cli
+    konstack/php:8.2-fpm
+    konstack/php:8.2-cli
+    konstack/php:8.1-fpm
+    konstack/php:8.1-cli
+    konstack/php:8.0-fpm
+    konstack/php:8.0-cli
+    konstack/php:7.4-fpm
+    konstack/php:7.4-cli
+    konstack/php:7.3-fpm
+    konstack/php:7.3-cli
 
 ## CLI
 
@@ -73,7 +73,7 @@ Useful system packages included:
     zsh with Oh My ZSH!
 
 ```bash
-docker run -u $(id -u):$(id -g) -ti --rm -v $(pwd):/work -w /work admibox/php:8.2-cli zsh
+docker run -u $(id -u):$(id -g) -ti --rm -v $(pwd):/work -w /work konstack/php:8.2-cli zsh
 ```
 
 Make PHP Great Again. Happy coding!
@@ -86,14 +86,14 @@ export SMTP_PASSWORD
 
 docker run -ti --rm \
     -e SMTP_PASSWORD \
-    -e SENDMAIL_COMMAND='msmtp --tls=on --tls-starttls=off --tls-trust-file=/etc/ssl/certs/ca-certificates.crt --host=mailer.admibox.com --protocol=smtp --auth=on --user=mta@admibox.com --passwordeval="printf \"%s\n\" \"$SMTP_PASSWORD\"" --port=465 --read-envelope-from -t' \
-admibox/php:8.2-cli zsh
+    -e SENDMAIL_COMMAND='msmtp --tls=on --tls-starttls=off --tls-trust-file=/etc/ssl/certs/ca-certificates.crt --host=mailer.konstack.com --protocol=smtp --auth=on --user=mta@konstack.com --passwordeval="printf \"%s\n\" \"$SMTP_PASSWORD\"" --port=465 --read-envelope-from -t' \
+konstack/php:8.2-cli zsh
 ```
 
 And then, from container shell:
 
 ```
-php -r 'mail("manel@admibox.com", "Hey, again!", "Come on, again!", "From: hello@admibox.com");'
+php -r 'mail("manel@konstack.com", "Hey, again!", "Come on, again!", "From: hello@konstack.com");'
 ```
 
 Et voilà.
@@ -109,8 +109,8 @@ sendmail_path = "eval $SENDMAIL_COMMAND"
 docker run -ti --rm \
     -v /dev/null:/usr/local/etc/php/conf.d/msmtp.ini
     -e SMTP_PASSWORD \
-    -e SENDMAIL_COMMAND='msmtp --tls=on --tls-starttls=off --tls-trust-file=/etc/ssl/certs/ca-certificates.crt --host=mailer.admibox.com --protocol=smtp --auth=on --user=mta@admibox.com --passwordeval="printf \"%s\n\" \"$SMTP_PASSWORD\"" --port=465 --read-envelope-from -t' \
-admibox/php:8.2-cli zsh
+    -e SENDMAIL_COMMAND='msmtp --tls=on --tls-starttls=off --tls-trust-file=/etc/ssl/certs/ca-certificates.crt --host=mailer.konstack.com --protocol=smtp --auth=on --user=mta@konstack.com --passwordeval="printf \"%s\n\" \"$SMTP_PASSWORD\"" --port=465 --read-envelope-from -t' \
+konstack/php:8.2-cli zsh
 ```
 
 Example using SendGrid:
@@ -123,13 +123,13 @@ docker run -ti --rm \
     -v /dev/null:/usr/local/etc/php/conf.d/msmtp.ini
     -e SMTP_PASSWORD \
     -e SENDMAIL_COMMAND='msmtp --tls=on --tls-starttls=off --tls-trust-file=/etc/ssl/certs/ca-certificates.crt --host=smtp.sendgrid.net --protocol=smtp --auth=on --user=apikey --passwordeval="printf \"%s\n\" \"$SMTP_PASSWORD\"" --port=465 --read-envelope-from -t' \
-admibox/php:8.2-cli zsh
+konstack/php:8.2-cli zsh
 ```
 
 And then, from container shell:
 
 ```
-php -r 'mail("manel@admibox.com", "Hey, again (from SendGrid)!", "Come on, again (from SendGrid)!", "From: mysender@mydomain.tld");'
+php -r 'mail("manel@konstack.com", "Hey, again (from SendGrid)!", "Come on, again (from SendGrid)!", "From: mysender@mydomain.tld");'
 ```
 
 ## Project and environment aware shell prompt
@@ -137,10 +137,11 @@ php -r 'mail("manel@admibox.com", "Hey, again (from SendGrid)!", "Come on, again
 By using the APP_NAME and APP_ENV environment variables, you can be aware of where you are.
 
 ```
-docker run -e APP_NAME=satspal -e APP_ENV=production -u $(id -u):$(id -g) -ti --rm -v $(pwd):/work admibox/php:8.2-cli zsh
+docker run -e APP_NAME=satspal -e APP_ENV=production -u $(id -u):$(id -g) -ti --rm -v $(pwd):/work konstack/php:8.2-cli zsh
 ```
 
 ```
 production|satspal >  ~
 ➜
 ```
+

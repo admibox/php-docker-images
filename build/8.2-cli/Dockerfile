@@ -1,4 +1,4 @@
-FROM admibox/php:8.2-fpm
+FROM konstack/php:8.2-fpm
 ARG DEBIAN_FRONTEND=noninteractive
 
 
@@ -17,7 +17,7 @@ COPY update-cli-tools.sh /usr/local/bin
 RUN echo \
 '\n'\
 '# \n'\
-'# PHP-CLI docker image by [Admibox](https://admibox.com/) | @getadmibox | <dev@admibox.com>.\n'\
+'# PHP-CLI docker image by [Konstack](https://konstack.com/) | <dev@konstack.com>.\n'\
 '# Based on the official php:8.2-cli docker image.\n'\
 '# \n'\
 '# Pre-built PHP extensions included: bcmath, sockets, opcache, gd, imagick, intl, xmlrw, xsl, igbinary, redis, memcached, zip, pcntl, pdo_mysql, mysqli, mongodb, amqp, rdkafka, swoole, openswoole, xhprof, xdebug, uopz, trapbox.\n'\
@@ -26,10 +26,10 @@ RUN echo \
 '# \n'\
 '# Make PHP Great Again. Happy coding!\n'\
 '# \n'\
-'# Check <https://github.com/admibox/php-docker-images/blob/master/README.md> for more information.\n'\
+'# Check <https://github.com/konstack/php-docker-images/blob/master/README.md> for more information.\n'\
 '# \n'\
 ''\
->> /etc/motd.admibox
+>> /etc/motd.konstack
 
 COPY etc/zshrc /etc/zsh/zshrc
 COPY etc/zshenv /etc/zsh/zshenv

@@ -6,13 +6,13 @@ docker run -u$(id -u):$(id -g) -ti --rm -v $(pwd):/work -eMODE=production php:7.
 # Loop through each folder in the 'build' directory
 for dir in build/*-fpm; do
   tag=$(basename $dir)
-  docker build --no-cache -t admibox/php:$tag -f build/$tag/Dockerfile .
+  docker build --no-cache -t konstack/php:$tag -f build/$tag/Dockerfile .
 done
 
 # Loop through each folder in the 'build' directory
-#for dir in build/*-cli; do
-#  tag=$(basename $dir)
-#  docker build --no-cache -t admibox/php:$tag -f build/$tag/Dockerfile .
-#done
+for dir in build/*-cli; do
+  tag=$(basename $dir)
+  docker build --no-cache -t konstack/php:$tag -f build/$tag/Dockerfile .
+done
 
-# docker push -a admibox/php
+docker push -a konstack/php

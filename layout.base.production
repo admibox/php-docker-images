@@ -2,7 +2,7 @@ FROM <?= $base ?>
 
 ARG DEBIAN_FRONTEND=noninteractive
 
-<?php if (strpos($base, 'admibox') !== 0) : ?>
+<?php if (strpos($base, 'konstack') !== 0) : ?>
 RUN set -ex \
 && apt-get update \
 && apt-get install --no-install-recommends -y git msmtp wget \
