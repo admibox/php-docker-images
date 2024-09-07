@@ -4,7 +4,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 
 ### CLI ###
 
-RUN apt-get update && apt-get install --no-install-recommends -y git zsh ssh vim bash rsync mariadb-client unzip wget less iputils-ping procps && apt-get clean
+RUN apt-get update && apt-get install --no-install-recommends -y git zsh ssh vim bash rsync mariadb-client unzip wget less iproute2 iputils-ping procps && apt-get clean
 
 RUN mkdir -p /work /local /opt/bin /etc/zsh && chmod 777 /work /local
 WORKDIR /work
