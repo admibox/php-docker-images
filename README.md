@@ -1,9 +1,9 @@
 # Konstack PHP Docker Images
 
-PHP Docker images from [Konstack SL](https://konstack.com/) | <dev@konstack.com>.
+PHP Docker images from [Konstack SL](https://konstack.com/) | [@konstack](https://x.com/konstack/) | <dev@konstack.com>.
 **Based on official PHP Debian Docker images.**
 
-These images are ready for use with Laravel, Magento 1/2, and WordPress.
+These images are ready to use with Laravel, Magento 1/2 and WordPress.
 
 Pre-built PHP extensions include:
 
