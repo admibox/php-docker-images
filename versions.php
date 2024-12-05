@@ -1,5 +1,8 @@
 <?php
 return [
+    [ 'version' => '8.4-fpm', 'base' => 'php:8.4-fpm' ],
+    [ 'version' => '8.4-cli', 'base' => 'konstack/php:8.4-fpm' ],
+
     [ 'version' => '8.3-fpm', 'base' => 'php:8.3-fpm' ],
     [ 'version' => '8.3-cli', 'base' => 'konstack/php:8.3-fpm' ],
 
