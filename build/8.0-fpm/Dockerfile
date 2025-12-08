@@ -45,8 +45,10 @@ RUN set -ex \
 \
 && pecl install igbinary && docker-php-ext-enable igbinary \
 \
-&& apt-get install --no-install-recommends -y libzstd-dev libzstd1 \
-&& printf "yes\nyes\nyes\n" | pecl install redis && docker-php-ext-enable redis \
+&& pecl install msgpack && docker-php-ext-enable msgpack \
+\
+&& apt-get install --no-install-recommends -y libzstd-dev libzstd1 liblz4-dev liblz4-1 \
+&& printf "yes\nyes\nyes\nyes\nyes\nyes\n" | pecl install redis && docker-php-ext-enable redis \
 \
 && apt-get install --no-install-recommends -y libmemcached11 libmemcachedutil2 zlib1g-dev libmemcached-dev libssl-dev \
 	&& printf "\n" | pecl install memcached \
@@ -64,7 +66,7 @@ RUN set -ex \
 && docker-php-ext-install mysqli \
 \
 && echo '### MongoDB for last PHP version' \
-&& pecl install mongodb \
+&& printf "yes\n" | pecl install mongodb-1.20.1 \
 \
 && echo '### AMQP for last PHP version' \
 && apt-get install --no-install-recommends -y librabbitmq4 librabbitmq-dev \
@@ -76,9 +78,12 @@ RUN set -ex \
 && printf "\n" | pecl install rdkafka \
 && apt-get --purge remove -y librdkafka-dev \
 \
-&& echo '### Swoole for PHP >= 8' \
+&& echo '### Swoole for PHP >= 8.3' \
 && apt-get install --no-install-recommends -y libpq5 libpq-dev openssl libssl-dev libc-ares2 libc-ares-dev libcurl4-openssl-dev libcurl4 libbrotli-dev \
-&& printf "yes\nyes\nyes\nyes\nyes\nyes\nyes\n" | pecl install swoole \
+&& docker-php-source extract \
+&& cp -fr /usr/src/php/ext/sockets /usr/local/include/php/ext/ \
+&& printf "yes\nyes\nyes\nyes\nyes\nyes\nyes\nno\nno\nno\n" | pecl install swoole-5.1.7 \
+&& docker-php-source delete \
 && apt-get --purge remove -y libpq-dev libssl-dev libc-ares-dev libbrotli-dev \
 \
 && echo '### Swoole for PHP >= 7.4' \

@@ -1,0 +1,1 @@
+pecl install msgpack && docker-php-ext-enable msgpack

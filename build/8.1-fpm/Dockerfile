@@ -37,8 +37,10 @@ RUN set -ex \
 \
 && pecl install igbinary && docker-php-ext-enable igbinary \
 \
-&& apt-get install --no-install-recommends -y libzstd-dev libzstd1 \
-&& printf "yes\nyes\nyes\n" | pecl install redis && docker-php-ext-enable redis \
+&& pecl install msgpack && docker-php-ext-enable msgpack \
+\
+&& apt-get install --no-install-recommends -y libzstd-dev libzstd1 liblz4-dev liblz4-1 \
+&& printf "yes\nyes\nyes\nyes\nyes\nyes\n" | pecl install redis && docker-php-ext-enable redis \
 \
 && apt-get install --no-install-recommends -y libmemcached11 libmemcachedutil2 zlib1g-dev libmemcached-dev libssl-dev \
 	&& printf "\n" | pecl install memcached \
@@ -75,7 +77,7 @@ RUN set -ex \
 \
 && echo '### Open Swoole for PHP >= 8' \
 && apt-get install --no-install-recommends -y libpq5 libpq-dev openssl libssl-dev libc-ares2 libc-ares-dev libcurl4-openssl-dev libcurl4 libbrotli-dev \
-&& printf "yes\nyes\nyes\nyes\nyes\nyes\nyes\n" | pecl install openswoole \
+&& printf "yes\nyes\nyes\nyes\nyes\nyes\nyes\n" | pecl install openswoole-22.1.2 \
 && apt-get --purge remove -y libpq-dev libssl-dev libc-ares-dev libbrotli-dev \
 \
 && (\

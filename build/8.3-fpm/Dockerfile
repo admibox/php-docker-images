@@ -48,8 +48,10 @@ apt-get install --no-install-recommends -y imagemagick libmagickwand-dev \
 \
 && pecl install igbinary && docker-php-ext-enable igbinary \
 \
-&& apt-get install --no-install-recommends -y libzstd-dev libzstd1 \
-&& printf "yes\nyes\nyes\n" | pecl install redis && docker-php-ext-enable redis \
+&& pecl install msgpack && docker-php-ext-enable msgpack \
+\
+&& apt-get install --no-install-recommends -y libzstd-dev libzstd1 liblz4-dev liblz4-1 \
+&& printf "yes\nyes\nyes\nyes\nyes\nyes\n" | pecl install redis && docker-php-ext-enable redis \
 \
 && apt-get install --no-install-recommends -y libmemcached11 libmemcachedutil2 zlib1g-dev libmemcached-dev libssl-dev \
 	&& printf "\n" | pecl install memcached \

@@ -1,0 +1,2 @@
+echo '### MongoDB for last PHP version' \
+&& printf "yes\n" | pecl install mongodb-1.20.1

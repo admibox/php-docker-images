@@ -11,6 +11,7 @@ return [
     'xmlrw',
     'xsl',
     'igbinary',
+    'msgpack',
     'redis',
     'memcached',
     'zip',

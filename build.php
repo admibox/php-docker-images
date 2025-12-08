@@ -13,13 +13,13 @@ $allExtensions = include(__DIR__ . '/extensions.php');
 
 foreach($versions as $versionArr) {
     $extensions = [];
+    $extensionsVersions = [];
 
     $version = $versionArr['version'];
     $base = $versionArr['base'] ?? $version;
+    $max = substr(preg_replace('#(-cli|-fpm)$#', '', $version), 0);
 
     foreach($allExtensions as $file) {
-        $max = substr(preg_replace('#(-cli|-fpm)$#', '', $version), 0);
-
         $candidates = array_reduce(
             array_merge(glob($extensionsDir . '/' . $file), glob($extensionsDir . '/' . "$file:*")),
             function($result, $file) {
@@ -40,6 +40,8 @@ foreach($versions as $versionArr) {
         } while($key && version_compare($key, $max, 'lt'));
 
         $candidate = $candidates[$key];
+
+        $extensionsVersions[] = $candidate;
 
         $content = trim(file_get_contents($extensionsDir . '/' . $candidate), " \t\n\r\0\x0B\\");
 

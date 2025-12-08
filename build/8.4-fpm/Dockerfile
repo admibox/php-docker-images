@@ -1,4 +1,4 @@
-FROM php:8.3-fpm
+FROM php:8.4-fpm
 ARG DEBIAN_FRONTEND=noninteractive
 
 RUN set -ex \
@@ -48,8 +48,10 @@ apt-get install --no-install-recommends -y imagemagick libmagickwand-dev \
 \
 && pecl install igbinary && docker-php-ext-enable igbinary \
 \
-&& apt-get install --no-install-recommends -y libzstd-dev libzstd1 \
-&& printf "yes\nyes\nyes\n" | pecl install redis && docker-php-ext-enable redis \
+&& pecl install msgpack && docker-php-ext-enable msgpack \
+\
+&& apt-get install --no-install-recommends -y libzstd-dev libzstd1 liblz4-dev liblz4-1 \
+&& printf "yes\nyes\nyes\nyes\nyes\nyes\n" | pecl install redis && docker-php-ext-enable redis \
 \
 && apt-get install --no-install-recommends -y libmemcached11 libmemcachedutil2 zlib1g-dev libmemcached-dev libssl-dev \
 	&& printf "\n" | pecl install memcached \
@@ -107,18 +109,6 @@ apt-get install --no-install-recommends -y imagemagick libmagickwand-dev \
 ) \
 \
 && pecl install xdebug-alpha \
-\
-&& pecl install uopz \
-\
-&& (\
-  mkdir -p /tmp/trapbox \
-  && git clone https://github.com/admibox/php-trapbox.git /tmp/trapbox \
-  && cd /tmp/trapbox \
-  && phpize \
-  && ./configure \
-  && make \
-  && make install \
-) \
 && apt-get --purge remove -y git \
 && apt-get --purge autoremove -y \
 && apt-get clean \
