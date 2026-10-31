@@ -1,2 +1,4 @@
-echo '### MongoDB for last PHP version' \
-&& pecl install mongodb
+echo '### MongoDB (disabled by default); TLS through system OpenSSL' \
+&& apt-get install --no-install-recommends -y libssl-dev \
+&& $PIE_INSTALL mongodb/mongodb-extension --with-mongodb-ssl=openssl \
+&& apt-get --purge remove -y libssl-dev

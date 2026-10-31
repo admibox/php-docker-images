@@ -1,2 +1,0 @@
-echo '### MongoDB for last PHP version' \
-&& pecl install mongodb

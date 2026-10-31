@@ -1,0 +1,6 @@
+echo '### GD for PHP 7.4+ (new configure syntax); FreeType, JPEG, PNG, WebP' \
+&& apt-get install --no-install-recommends -y libfreetype6-dev libpng-dev libjpeg62-turbo-dev libjpeg-dev libwebp-dev \
+	&& docker-php-ext-configure gd --enable-gd --with-freetype=/usr/include/ --with-jpeg=/usr/include/ --with-webp=/usr/include/ \
+	&& docker-php-ext-install gd \
+	&& apt-mark manual 'libfreetype6' 'libpng16*' 'libjpeg62*' 'libwebp[0-9]*' \
+	&& apt-get --purge remove -y libfreetype6-dev libpng-dev libjpeg62-turbo-dev libjpeg-dev libwebp-dev

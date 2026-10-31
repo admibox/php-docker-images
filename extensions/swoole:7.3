@@ -1,0 +1,5 @@
+echo '### Swoole (disabled by default)' \
+&& apt-get install --no-install-recommends -y libpq-dev libssl-dev libc-ares-dev libcurl4-openssl-dev \
+&& printf "yes\nyes\nyes\nyes\nyes\nyes\nyes\n" | pecl install swoole \
+&& apt-mark manual 'libpq5' 'libc-ares2' 'libcurl4' \
+&& apt-get --purge remove -y libpq-dev libssl-dev libc-ares-dev

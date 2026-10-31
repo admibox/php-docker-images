@@ -1,0 +1,5 @@
+apt-get install --no-install-recommends -y libssl-dev \
+&& docker-php-ext-configure ftp --with-openssl-dir \
+&& docker-php-ext-install ftp \
+&& php -r 'exit(extension_loaded("ftp") && function_exists("ftp_ssl_connect") ? 0 : 1);' \
+&& apt-get --purge remove -y libssl-dev

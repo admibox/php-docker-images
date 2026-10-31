@@ -1,0 +1,8 @@
+#!/bin/sh
+# Keep a container alive for `exec`, cron or consumers. Exits on the stop signals of both
+# PHP-FPM (SIGQUIT) and the usual container runtimes (SIGTERM, SIGINT).
+trap 'exit 0' TERM INT QUIT
+while :; do
+    sleep 2147483647 &
+    wait $!
+done

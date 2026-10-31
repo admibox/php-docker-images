@@ -1,0 +1,7 @@
+echo '### Swoole (disabled by default): sockets, OpenSSL, curl, c-ares, brotli, zstd, mysqlnd, PostgreSQL' \
+&& apt-get install --no-install-recommends -y libpq-dev libssl-dev libc-ares-dev libcurl4-openssl-dev libbrotli-dev libzstd-dev \
+&& docker-php-source extract \
+&& cp -fr /usr/src/php/ext/sockets /usr/local/include/php/ext/ \
+&& $PIE_INSTALL swoole/swoole --enable-sockets --enable-mysqlnd --enable-swoole-curl --enable-cares --enable-brotli --enable-zstd --enable-swoole-pgsql --with-openssl-dir=/usr \
+&& docker-php-source delete \
+&& apt-get --purge remove -y libpq-dev libssl-dev libc-ares-dev libbrotli-dev libzstd-dev

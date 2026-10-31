@@ -1,0 +1,4 @@
+apt-get install --no-install-recommends -y libmcrypt-dev \
+&& printf "\n" | pecl install mcrypt \
+&& apt-mark manual libmcrypt4 \
+&& apt-get --purge remove -y libmcrypt-dev

@@ -1,0 +1,4 @@
+apt-get install --no-install-recommends -y imagemagick libmagickwand-dev \
+&& printf "\n" | pecl install imagick \
+&& apt-mark manual 'imagemagick' 'libmagickwand-*' 'libmagickcore-*' \
+&& apt-get --purge remove -y libmagickwand-dev

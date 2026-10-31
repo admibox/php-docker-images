@@ -1,0 +1,10 @@
+echo '### xhprof: built from the latest release tag of the upstream repository (longxinH/xhprof is not published on Packagist by its maintainer)' \
+&& mkdir -p /var/xhprof /opt/xhprof && chmod 777 /var/xhprof \
+&& git clone --quiet https://github.com/longxinH/xhprof.git /tmp/xhprof \
+&& cd /tmp/xhprof \
+&& tag="$(git tag --list --sort=-version:refname | grep -E '^v[0-9]+\.[0-9]+\.[0-9]+$' | head -n 1)" \
+&& test -n "$tag" && echo "xhprof $tag" \
+&& git checkout --quiet "$tag" \
+&& cd extension && phpize && ./configure && make && make install && cd .. \
+&& cp -r xhprof_html xhprof_lib /opt/xhprof/ \
+&& cd / && rm -rf /tmp/xhprof

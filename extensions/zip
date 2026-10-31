@@ -1,3 +1,4 @@
-apt-get install --no-install-recommends -y zlib1g-dev libzip-dev libzip4 \
+apt-get install --no-install-recommends -y zlib1g-dev libzip-dev \
 	&& docker-php-ext-install zip \
+	&& apt-mark manual 'libzip[0-9]*' \
 	&& apt-get --purge remove -y zlib1g-dev libzip-dev

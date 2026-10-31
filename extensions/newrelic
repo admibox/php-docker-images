@@ -1,0 +1,8 @@
+echo '### New Relic PHP agent (disabled by default); the generated newrelic.ini is kept as a reference outside conf.d' \
+&& curl -fL https://download.newrelic.com/php_agent/archive/12.11.0.40/newrelic-php5-12.11.0.40-linux.tar.gz -o /tmp/newrelic.tar.gz \
+&& echo '7e747da48ef87ef14b612a33487ec420008e1589a78a54d1e107c2e7590ad339  /tmp/newrelic.tar.gz' | sha256sum -c - \
+&& tar -C /tmp -zxf /tmp/newrelic.tar.gz \
+&& NR_INSTALL_USE_CP_NOT_LN=1 NR_INSTALL_SILENT=1 /tmp/newrelic-php5-12.11.0.40-linux/newrelic-install install \
+&& mkdir -p /usr/local/share/newrelic \
+&& mv "$PHP_INI_DIR/conf.d/newrelic.ini" /usr/local/share/newrelic/newrelic.ini.example \
+&& rm -rf /tmp/newrelic.tar.gz /tmp/newrelic-php5-* /tmp/nrinstall*

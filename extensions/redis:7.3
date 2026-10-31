@@ -1,2 +1,5 @@
-apt-get install --no-install-recommends -y libzstd-dev libzstd1 liblz4-dev liblz4-1 \
-&& printf "yes\nyes\nyes\nyes\nyes\nyes\n" | pecl install redis-6.0.2 && docker-php-ext-enable redis
+apt-get install --no-install-recommends -y libzstd-dev liblz4-dev \
+&& printf "yes\nyes\nyes\nyes\nyes\nyes\n" | pecl install redis \
+&& docker-php-ext-enable redis \
+&& apt-mark manual 'libzstd[0-9]*' 'liblz4-[0-9]*' \
+&& apt-get --purge remove -y libzstd-dev liblz4-dev

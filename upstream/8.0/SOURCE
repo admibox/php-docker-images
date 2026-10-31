@@ -1,0 +1,4 @@
+https://github.com/docker-library/php/tree/41c9ad0b43a50bbf46564f27779a01105df49b9a/8.0/bullseye/fpm
+Recipe adapted from bullseye to bookworm.
+https://packages.sury.org/php/pool/main/p/php8.0/php8.0_8.0.30-25%2B0~20261021.88%2Bdebian12~1.gbpabebea.debian.tar.xz
+Selected patches recorded in patches.json.

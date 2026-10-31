@@ -1,0 +1,4 @@
+echo '### RDKafka (disabled by default)' \
+&& apt-get install --no-install-recommends -y librdkafka-dev \
+&& $PIE_INSTALL rdkafka/rdkafka \
+&& apt-get --purge remove -y librdkafka-dev

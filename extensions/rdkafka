@@ -1,4 +1,5 @@
-echo '### RDKafka for last PHP version' \
-&& apt-get install --no-install-recommends -y librdkafka1 librdkafka-dev \
+echo '### RDKafka (disabled by default)' \
+&& apt-get install --no-install-recommends -y librdkafka-dev \
 && printf "\n" | pecl install rdkafka \
+&& apt-mark manual 'librdkafka[0-9]*' \
 && apt-get --purge remove -y librdkafka-dev

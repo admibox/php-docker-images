@@ -1,4 +1,5 @@
-apt-get install --no-install-recommends -y libmemcached11 libmemcachedutil2 zlib1g-dev libmemcached-dev libssl-dev \
-	&& printf "\n" | pecl install memcached \
-	&& docker-php-ext-enable memcached \
-	&& apt-get --purge remove -y zlib1g-dev libmemcached-dev libssl-dev
+apt-get install --no-install-recommends -y zlib1g-dev libmemcached-dev libssl-dev \
+&& printf "\n" | pecl install memcached \
+&& docker-php-ext-enable memcached \
+&& apt-mark manual 'libmemcached11*' 'libmemcachedutil2*' \
+&& apt-get --purge remove -y zlib1g-dev libmemcached-dev libssl-dev

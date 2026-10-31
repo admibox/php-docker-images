@@ -1,2 +1,3 @@
-/cli-tools.tgz
-/cli-tools/
+/build/
+*.log
+__pycache__/

@@ -1,5 +1,4 @@
 apt-get install --no-install-recommends -y libxml2-dev \
-	&& docker-php-ext-install soap \
-	&& CFLAGS=-I/usr/src/php docker-php-ext-install xmlreader \
-	&& CFLAGS=-I/usr/src/php docker-php-ext-install xmlwriter \
-	&& apt-get --purge remove -y libxml2-dev
+&& docker-php-ext-install soap \
+&& php -n -r 'exit(extension_loaded("xmlreader") && extension_loaded("xmlwriter") ? 0 : 1);' \
+&& apt-get --purge remove -y libxml2-dev

@@ -1,1 +1,1 @@
-docker-php-ext-install opcache
+test -f "$(php-config --extension-dir)/opcache.so" || docker-php-ext-install opcache

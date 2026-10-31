@@ -1,0 +1,4 @@
+echo '### memcached with igbinary, msgpack and json serializers (as Debian/Sury builds it; default serializer becomes igbinary)' \
+&& apt-get install --no-install-recommends -y zlib1g-dev libmemcached-dev libssl-dev \
+&& $PIE_INSTALL php-memcached/php-memcached --enable-memcached-sasl --enable-memcached-session --enable-memcached-igbinary --enable-memcached-msgpack --enable-memcached-json \
+&& apt-get --purge remove -y zlib1g-dev libmemcached-dev libssl-dev

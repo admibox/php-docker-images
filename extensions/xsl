@@ -1,3 +1,4 @@
-apt-get install --no-install-recommends -y libxslt1-dev libxslt1.1 \
+apt-get install --no-install-recommends -y libxslt1-dev \
 	&& docker-php-ext-install xsl \
+	&& apt-mark manual 'libxslt1*' \
 	&& apt-get --purge remove -y libxslt1-dev

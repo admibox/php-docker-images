@@ -1,0 +1,4 @@
+echo '### AMQP (disabled by default)' \
+&& apt-get install --no-install-recommends -y librabbitmq-dev libssl-dev \
+&& $PIE_INSTALL php-amqp/php-amqp \
+&& apt-get --purge remove -y librabbitmq-dev libssl-dev

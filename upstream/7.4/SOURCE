@@ -1,0 +1,4 @@
+https://github.com/docker-library/php/tree/b9f17156020c3aef71df681b27684533529347a7/7.4/bullseye/fpm
+Recipe adapted from bullseye to bookworm.
+https://packages.sury.org/php/pool/main/p/php7.4/php7.4_7.4.33-31%2B0~20261021.121%2Bdebian13~1.gbpe9c428.debian.tar.xz
+Selected patches recorded in patches.json.

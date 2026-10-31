@@ -1,3 +1,0 @@
-apt-get install --no-install-recommends -y libsodium23 libsodium-dev \
-	&& pecl install -f libsodium \
-	&& apt-get --purge remove -y libsodium-dev

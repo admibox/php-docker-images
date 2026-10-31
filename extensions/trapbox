@@ -1,0 +1,6 @@
+echo '### trapbox (EcommPro, disabled by default): PHP 7.3 to 8.5, pinned to the validated commit of admibox/php-trapbox' \
+&& git clone --quiet https://github.com/admibox/php-trapbox.git /tmp/trapbox \
+&& cd /tmp/trapbox \
+&& git checkout --quiet --detach cb6364212442c502e108537b1561697957d66161 \
+&& phpize && ./configure && make && make install \
+&& cd / && rm -rf /tmp/trapbox

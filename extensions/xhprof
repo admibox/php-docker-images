@@ -1,10 +1,7 @@
-(\
-	mkdir -p /var/xhprof /opt/xhprof/xhprof_html /usr/local/share/php && chmod 777 /var/xhprof \
-	&& pecl install xhprof \
-	&& docker-php-ext-enable xhprof \
-	&& mkdir -p /opt/xhprof \
-	&& cd /opt/xhprof/ \
-	&& pecl download xhprof \
-	&& tar --strip 1 -xzvf xhprof-*.tgz \
-	&& rm -fr xhprof-*.tgz \
-)
+mkdir -p /var/xhprof /opt/xhprof/xhprof_html /usr/local/share/php && chmod 777 /var/xhprof \
+&& pecl install xhprof \
+&& cd /opt/xhprof/ \
+&& pecl download xhprof \
+&& tar --strip 1 -xzf xhprof-*.tgz \
+&& rm -f xhprof-*.tgz \
+&& cd /

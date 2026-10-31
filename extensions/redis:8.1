@@ -1,0 +1,4 @@
+echo '### redis with igbinary/msgpack serializers and lzf/lz4/zstd compression (system liblzf: the Packagist zip lacks the bundled submodule)' \
+&& apt-get install --no-install-recommends -y libzstd-dev liblz4-dev liblzf-dev \
+&& $PIE_INSTALL phpredis/phpredis --enable-redis-igbinary --enable-redis-msgpack --enable-redis-lzf --with-liblzf=yes --enable-redis-lz4 --with-liblz4=/usr --enable-redis-zstd --with-libzstd=/usr \
+&& apt-get --purge remove -y libzstd-dev liblz4-dev liblzf-dev
