@@ -29,7 +29,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
 HELPERS = ['docker-php-source', 'docker-php-ext-configure', 'docker-php-ext-enable', 'docker-php-ext-install', 'docker-php-entrypoint']
-# Never taken from a packaging series: Debian-specific packaging, README edits, DNS telemetry.
+# Never taken from a packaging series: README edits and DNS telemetry (also any patch touching its code).
 ALWAYS_SKIPPED = re.compile(r'telemetry|README', re.I)
 # Runtime library detection that works on merged-/usr Debian (bookworm and later).
 LDD_BLOCK = (
@@ -143,14 +143,22 @@ def vendor(branch, settings, update):
         with tarfile.open(fileobj=io.BytesIO(data)) as package:
             series = package.extractfile('debian/patches/series').read().decode().splitlines()
             changelog = package.extractfile('debian/changelog').read().decode()
+            started = False
             for name in series:
                 if not name or name.startswith('#'):
                     continue
-                selected = (name[:4] >= patches['from'] or name in patches.get('also', [])) \
-                    and name not in patches.get('skip', []) and not ALWAYS_SKIPPED.search(name)
+                content = package.extractfile('debian/patches/' + name).read()
+                subject = re.sub(r'^\d{4}-|\.patch$', '', name)
+                if subject.startswith(patches['from']):
+                    started = True
+                selected = (started or any(subject.startswith(a) for a in patches.get('also', []))) \
+                    and not any(subject.startswith(s) for s in patches.get('skip', [])) \
+                    and not ALWAYS_SKIPPED.search(name) and b'secure_dns_telemetry' not in content
                 (included if selected else excluded).append(name)
                 if selected:
-                    (target / 'patches' / name).write_bytes(package.extractfile('debian/patches/' + name).read())
+                    (target / 'patches' / name).write_bytes(content)
+        if not started:
+            sys.exit(f"PHP {branch}: no patch subject starts with {patches['from']!r} in the series")
         (target / 'patches' / 'series').write_text('\n'.join(included) + '\n')
         cves = sorted({cve for name in included for cve in re.findall(r'CVE-\d{4}-\d+', name)})
         # The October 2026 backport names no CVE in its file name; record it from the patch header.

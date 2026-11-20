@@ -32,7 +32,19 @@ foreach (array_keys(include __DIR__ . '/versions.php') as $branch) {
     $check(strpos($dockerfile, 'php-image-manifest.json') !== false, "$branch: manifest step missing");
     $check(strpos($manifest['php'], $branch . '.') === 0, "$branch: unexpected PHP version {$manifest['php']}");
     $expected = version_compare($branch, '8.0', '<') ? array_merge($catalog, array_keys(include __DIR__ . '/extensions.legacy.php')) : $catalog;
-    $missing = array_diff($expected, $manifest['extensions']);
+    // An empty recipe file declares the entry unavailable on this branch.
+    $unavailable = array_values(array_filter($expected, function ($name) use ($branch) {
+        $files = glob(__DIR__ . "/extensions/$name:*") ?: [];
+        $best = null;
+        foreach ($files as $file) {
+            $minimum = explode(':', basename($file), 2)[1];
+            if (version_compare($minimum, $branch, '<=') && ($best === null || version_compare($minimum, $best[0], '>'))) {
+                $best = [$minimum, $file];
+            }
+        }
+        return $best !== null && trim(file_get_contents($best[1])) === '';
+    }));
+    $missing = array_diff($expected, $manifest['extensions'], $unavailable);
     $check($missing === [], "$branch: catalog entries dropped: " . implode(', ', $missing));
     if (version_compare($branch, '8.1', '>=')) {
         $check(strpos($dockerfile, 'pecl install') === false, "$branch: PECL used on a PIE branch");
@@ -41,6 +53,6 @@ foreach (array_keys(include __DIR__ . '/versions.php') as $branch) {
         $check(strpos($dockerfile, '$PIE_INSTALL') === false, "$branch: PIE used on a PHP < 8.1 branch");
         $check(!preg_match('/pecl (?:install|download)\s+(?:-f\s+)?[a-z_]+(?![\w.\/-])/', $dockerfile), "$branch: unresolved PECL package");
     }
-    echo "PHP {$manifest['php']}: " . count($manifest['extensions']) . " extensions OK\n";
+    echo "PHP {$manifest['php']}: " . count($manifest['extensions']) . " extensions OK" . ($unavailable ? ' (unavailable: ' . implode(' ', $unavailable) . ')' : '') . "\n";
 }
 echo "Generator OK\n";
