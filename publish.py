@@ -30,7 +30,12 @@ ACCEPT = ', '.join([
 
 args = [a for a in sys.argv[1:] if not a.startswith('--')]
 force = '--force' in sys.argv
-branches = args or sorted(p.parent.name for p in (ROOT / 'build').glob('*/manifest.json'))
+configured = json.loads(subprocess.run(
+    ['sudo', '-n', 'nerdctl', 'run', '--rm', '--network', 'none', '-v', f'{ROOT}:/work:ro', '-w', '/work',
+     os.environ.get('PHP_GENERATOR', 'php:8.2-cli'), 'php', '-r', 'echo json_encode(array_keys(include "versions.php"));'],
+    capture_output=True, text=True, check=True).stdout)
+built = {p.parent.name for p in (ROOT / 'build').glob('*/manifest.json')}
+branches = args or [b for b in configured if b in built]
 if not branches:
     sys.exit('Nothing to publish: run ./build.sh first.')
 
